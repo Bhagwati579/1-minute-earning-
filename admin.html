@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+</head>
+<body>
+  <h1>Admin Panel</h1>
+  <div class="container" id="tasks"></div>
+
+  <script src="firebase-config.js"></script>
+  <script>
+    const db = firebase.database();
+    db.ref("tasks").on("value", snap => {
+      const tasks = snap.val();
+      const box = document.getElementById("tasks");
+      box.innerHTML = "";
+      let paid = 0, total = 0;
+      for (let id in tasks) {
+        total++;
+        const task = tasks[id];
+        const div = document.createElement("div");
+        div.className = "entry";
+        div.innerHTML = `
+          <b>${task.name}</b> - ${task.task}<br>
+          Referral: ${task.referral} | ₹1000 | ${task.paid ? "✅ Paid" : `<button onclick="markPaid('${id}')">Mark Paid</button>`}
+        `;
+        if (task.paid) paid++;
+        box.appendChild(div);
+      }
+      box.insertAdjacentHTML("beforebegin", `<p>📊 Total: ${total} | Paid: ${paid} | Pending: ${total-paid} | ₹${paid*1000}</p>`);
+    });
+
+    function markPaid(id) {
+      firebase.database().ref("tasks/" + id).update({ paid: true });
+    }
+  </script>
+</body>
+</html>
