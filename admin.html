@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard - EarnGati</title>
+  <style>
+    body { background: #111; color: white; font-family: sans-serif; padding: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #555; padding: 10px; text-align: left; }
+    th { background: #222; }
+    input[type="checkbox"] { transform: scale(1.5); }
+  </style>
+</head>
+<body>
+  <h1>📋 Admin Task Panel</h1>
+  <table>
+    <thead>
+      <tr><th>Name</th><th>Task</th><th>UPI</th><th>Timestamp</th><th>Paid?</th></tr>
+    </thead>
+    <tbody id="taskTable"></tbody>
+  </table>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="firebase-config.js"></script>
+  <script>
+    const db = firebase.database();
+    const taskTable = document.getElementById("taskTable");
+
+    function formatDate(ts) {
+      const d = new Date(ts);
+      return d.toLocaleString();
+    }
+
+    db.ref("tasks").on("value", (snapshot) => {
+      taskTable.innerHTML = "";
+      snapshot.forEach(child => {
+        const data = child.val();
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${data.name}</td>
+          <td>${data.task}</td>
+          <td>${data.upi}</td>
+          <td>${formatDate(data.timestamp)}</td>
+          <td><input type="checkbox" ${data.paid ? "checked" : ""} onchange="markPaid('${child.key}', this.checked)"></td>
+        `;
+        taskTable.appendChild(tr);
+      });
+    });
+
+    function markPaid(taskId, status) {
+      db.ref("tasks/" + taskId).update({ paid: status });
+    }
+  </script>
+</body>
+</html>
