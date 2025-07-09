@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EarnGati™ - Admin Panel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <script>
+    if (sessionStorage.getItem("adminLoggedIn") !== "true") {
+      window.location.href = "login.html";
+    }
+  </script>
+
+  <h1 id="welcomeAdmin">Admin Panel</h1>
+  <p>Total Tasks: <span id="totalTasks">0</span> | Paid: <span id="paidTasks">0</span> | Unpaid: <span id="unpaidTasks">0</span></p>
+
+  <input type="text" id="searchInput" placeholder="🔍 Search by name or UPI..." />
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Task</th>
+        <th>UPI</th>
+        <th>Timestamp</th>
+        <th>Paid?</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="taskTableBody">
+    </tbody>
+  </table>
+
+  <br />
+  <button onclick="logout()">🚪 Logout</button>
+
+  <script type="module" src="admin-firebase.js"></script>
+  <script src="admin-panel.js"></script>
+  <script>
+    function logout() {
+      sessionStorage.removeItem("adminLoggedIn");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
