@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>📋 EarnGati Admin Panel</title>
+  <style>
+    body { background: #000; color: #fff; font-family: Arial; padding: 20px; }
+    table { width: 100%%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #444; padding: 10px; text-align: left; }
+    th { background-color: #111; }
+    button { background-color: red; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+    .paid { background-color: green !important; }
+    input[type="text"] { width: 300px; padding: 8px; margin-bottom: 10px; border-radius: 5px; border: none; }
+  </style>
+</head>
+<body>
+  <h2>📋 EarnGati Admin Task Panel</h2>
+  <p>Total Tasks: <span id="totalCount">0</span> | Paid: <span id="paidCount">0</span> | Unpaid: <span id="unpaidCount">0</span></p>
+  <input type="text" id="searchInput" placeholder="🔍 Search by name or UPI..." />
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Task</th>
+        <th>UPI</th>
+        <th>Timestamp</th>
+        <th>Paid?</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="taskTableBody"></tbody>
+  </table>
+  <script type="module" src="admin-panel.js"></script>
+</body>
+</html>
