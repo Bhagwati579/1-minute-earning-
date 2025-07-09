@@ -1,22 +1,25 @@
-// Import Firebase App and Database
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+// ✅ 1. Import Firebase modules
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
 
-// Your Firebase Config
+// ✅ 2. Your Live Firebase Configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCInD5L_WWTX9bD1sEOfkCdTt3sdGSeCo4",
   authDomain: "earngati-gpay-system.firebaseapp.com",
   databaseURL: "https://earngati-gpay-system-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "earngati-gpay-system",
-  storageBucket: "earngati-gpay-system.appspot.com",
+  storageBucket: "earngati-gpay-system.firebasestorage.app",
   messagingSenderId: "729473631351",
   appId: "1:729473631351:web:354f01b5fe32a4fe843272",
   measurementId: "G-7VT4TGL3N4"
 };
 
-// Initialize Firebase
+// ✅ 3. Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+const database = getDatabase(app);
+
+// ✅ 4. Export for use in admin-panel.js
+export { database, ref, onValue, update };
 
 // Reference to tasks
 const tasksRef = ref(db, "tasks");
