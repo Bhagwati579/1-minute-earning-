@@ -33,7 +33,9 @@
 
   <script type="module" src="admin-firebase.js"></script>
   <script src="admin-panel.js"></script>
-  <script>
+  <script>if (sessionStorage.getItem("adminLoggedIn") !== "true") {
+  window.location.href = "login.html";
+}
     function logout() {
       sessionStorage.removeItem("adminLoggedIn");
       window.location.href = "login.html";
