@@ -1,1 +1,37 @@
-<!-- refer-task.html - Final EarnGati Version -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Refer Task Page</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>📨 Refer & Earn Task Submission</h1>
+  <form id="referTaskForm">
+    <label for="name">Your Name</label><br>
+    <input type="text" id="name" placeholder="Enter your name" required><br><br>
+
+    <label for="task">Task Description</label><br>
+    <textarea id="task" placeholder="Describe the task" required></textarea><br><br>
+
+    <label for="upi">Your UPI ID</label><br>
+    <input type="text" id="upi" placeholder="example@upi" required><br><br>
+
+    <button type="submit">📤 Submit Task</button>
+  </form>
+
+  <p style="margin-top: 20px;">
+    Referral ID: <strong><span id="refDisplay"></span></strong>
+  </p>
+
+  <script type="module">
+    import './refer-firebase.js';
+
+    // Display referral ID
+    const urlParams = new URLSearchParams(window.location.search);
+    const ref = urlParams.get('ref') || 'none';
+    document.getElementById("refDisplay").textContent = ref;
+  </script>
+</body>
+</html><!-- refer-task.html - Final EarnGati Version -->
