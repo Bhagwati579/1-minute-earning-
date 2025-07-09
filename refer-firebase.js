@@ -1,1 +1,0 @@
-// Referral Firebase Config JS
