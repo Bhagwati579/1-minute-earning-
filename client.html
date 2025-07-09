@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Client Task Submit | EarnGati</title>
+  <style>
+    body { font-family: Arial; background: #f3f3f3; padding: 20px; }
+    h2 { color: #333; }
+    input, textarea { width: 100%%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; }
+    button { background: green; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+    .qr { text-align: center; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h2>📨 Submit Your Task (Client Panel)</h2>
+  <form id="clientTaskForm">
+    <input type="text" id="name" placeholder="Your Name" required />
+    <textarea id="task" rows="3" placeholder="Enter the task details..." required></textarea>
+    <input type="text" id="upi" value="client@upi" readonly />
+    <p>📌 Please scan the QR below to pay ₹200 before submitting.</p>
+    <div class="qr">
+      <img src="https://chart.googleapis.com/chart?chs=200x200&cht=upi&chl=upi://pay?pa=bhagwatilalpushkarna123-1@oksbi&pn=EarnGati&am=200&cu=INR" alt="Scan to Pay ₹200" />
+    </div>
+    <button type="submit">Submit Task</button>
+  </form>
+
+  <p id="successMsg" style="color: green; display: none;">✅ Task submitted successfully. We will verify payment shortly!</p>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+    import { firebaseConfig } from "./client-firebase.js";
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    document.getElementById("clientTaskForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const task = document.getElementById("task").value;
+
+      push(ref(db, "tasks/"), {
+        name,
+        task,
+        upi: "client@upi",
+        timestamp: Date.now(),
+        paid: false,
+        fromClient: true
+      }).then(() => {
+        document.getElementById("successMsg").style.display = "block";
+      });
+    });
+  </script>
+</body>
+</html>
