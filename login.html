@@ -26,6 +26,9 @@
       const adminPassword = "bkmanvi@123";
 
       if (email === adminEmail && password === adminPassword) {
+  sessionStorage.setItem("adminLoggedIn", "true");
+  window.location.href = "admin.html";
+      }
         // Redirect to admin panel
         window.location.href = "admin.html";
       } else {
