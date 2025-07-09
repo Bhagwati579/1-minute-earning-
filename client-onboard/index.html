@@ -2,9 +2,83 @@
 <html>
 <head>
   <title>Client Onboarding Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 40px;
+      text-align: center;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, textarea {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome Client 👋</h1>
-  <p>Please submit your task and UPI for payment processing.</p>
+  <h1>👋 Welcome Client</h1>
+  <p>Submit a task you'd like to assign + your UPI for payout</p>
+
+  <form onsubmit="submitClientTask(event)">
+    <input type="text" id="clientName" placeholder="Your Name" required><br>
+    <textarea id="clientTask" placeholder="Task Description" required></textarea><br>
+    <input type="text" id="clientUPI" placeholder="Your UPI ID" required><br>
+    <button type="submit">Submit Task</button>
+  </form>
+
+  <p id="status" style="color: green;"></p>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCInD5L_WWTX9bD1sEOfkCdTt3sdGSeCo4",
+      authDomain: "earngati-gpay-system.firebaseapp.com",
+      databaseURL: "https://earngati-gpay-system-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "earngati-gpay-system",
+      storageBucket: "earngati-gpay-system.appspot.com",
+      messagingSenderId: "729473631351",
+      appId: "1:729473631351:web:354f01b5fe32a4fe843272"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    window.submitClientTask = function(event) {
+      event.preventDefault();
+      const name = document.getElementById("clientName").value;
+      const task = document.getElementById("clientTask").value;
+      const upi = document.getElementById("clientUPI").value;
+
+      push(ref(db, "clientTasks/"), {
+        name: name,
+        task: task,
+        upi: upi,
+        timestamp: Date.now()
+      });
+
+      document.getElementById("status").innerText = "✅ Task submitted successfully!";
+      event.target.reset();
+    };
+  </script>
 </body>
 </html>
