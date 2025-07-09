@@ -1,1 +1,18 @@
-<!-- style.css - Final EarnGati Version -->
+body {
+  background-color: #000;
+  color: white;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  padding: 50px;
+}
+
+button {
+  background-color: red;
+  color: white;
+  font-size: 18px;
+  padding: 10px 20px;
+  margin: 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}<!-- style.css - Final EarnGati Version -->
