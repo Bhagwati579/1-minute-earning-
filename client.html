@@ -1,1 +1,22 @@
-<!-- client.html - Final EarnGati Version -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Client Onboarding - EarnGati</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>👋 Welcome Client</h1>
+  <p>Submit a task you'd like to assign + your UPI for payout</p>
+
+  <form id="clientForm">
+    <input type="text" id="clientName" placeholder="Your Name" required /><br /><br />
+    <input type="text" id="taskDesc" placeholder="Task Description" required /><br /><br />
+    <input type="text" id="clientUPI" placeholder="Your UPI ID" required /><br /><br />
+    <button type="submit">Submit Task</button>
+  </form>
+
+  <script type="module" src="client-firebase.js"></script>
+</body>
+</html><!-- client.html - Final EarnGati Version -->
